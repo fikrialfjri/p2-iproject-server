@@ -10,18 +10,12 @@ const io = require("socket.io")(httpServer);
 const users = []
 
 io.on("connection", (socket) => {
-  console.log("user connected");
-  console.log(socket);
-
   socket.on("sendMessage", (data) => {
-    console.log(data, "<<<<< server");
-
     // io.emit("broadcastMessage", data)
     socket.broadcast.emit("broadcastMessage", data)
   })
 
   socket.on("loginUser", (user) => {
-    console.log(user);
     users.push(user)
 
     io.emit("usersLogin", users)
